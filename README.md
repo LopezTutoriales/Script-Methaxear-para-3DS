@@ -20,16 +20,16 @@ Solamente hay que copiar la carpta "gm9" y el archivo "boot.firm" a la raíz de 
 Al encender la consola, se accederá automáticamente a GodMode9. Simplemente hay que pulsar el botón "Home", ir al apartado "scripts" y seleccionar el script "Methaxear_v1.0"
 
 ## Créditos y agradecimientos
-* **@LumaTeam**, por Luma 3DS
-* **@d0k3** por GodMode9
-* **@Steveice** por FBI
-* **@zoogie** por DSP1
+* **LumaTeam**, por Luma 3DS
+* **d0k3** por GodMode9
+* **Steveice** por FBI
+* **zoogie** por DSP1
 * **SciresM** por Boot9Strap
 * **Yakara** por boot9strap modificado y por inspirarme
-* **@ihaveamac** por ctr-no-timeoffset
+* **ihaveamac** por ctr-no-timeoffset
 * **Kelonio 3DS** por testear el script a fondo
 * **NinTricks** por testear el script
-* **@fincs** por Homebrew Launcher
-* **@yellows8** por archivo cia de Homebrew Launcher
-* **@annson24** por script GM9MegaScript y el codigo de hacer la copia de la SYSNAND e inyectar FBI en S&S
+* **fincs** por Homebrew Launcher
+* **yellows8** por archivo cia de Homebrew Launcher
+* **annson24** por script GM9MegaScript y el codigo de hacer la copia de la SYSNAND e inyectar FBI en S&S
 * Todos los que posiblemente olvidé, si crees que mereces ser mencionado, ¡solo contáctame!
