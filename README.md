@@ -10,7 +10,8 @@ Script automático para GodMode9 con las siguientes funciones:
 7. Soluciona errores de las carpetas dbs, data y private de la SYSNAND
 
 ## Requisitos
-Se necesita tener instalado Boot9Strap en la consola donde se va a ejecutar el script
+- Se necesita tener instalado Boot9Strap en la consola donde se va a ejecutar el script
+- Se necesita tener la carpeta "Nintendo 3DS" junto al ID0 y el ID1 para poder instalar los cias
 
 ## Instalación
 Solamente hay que copiar la carpta "gm9" y el archivo "boot.firm" a la raíz de la tarjeta SD
