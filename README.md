@@ -1,11 +1,11 @@
-# Script Methaxear v1.0
+# Script Methaxear v1.1
 Script automático para GodMode9 con las siguientes funciones:
 
 1. Crea automaticamente una copia de seguridad de la SYSNAND de tu 3DS
 2. Instala/actualiza Boot9Strap
 3. Elimina archivos innecesarios de otros hacks de tu SD
-4. Instala Luma 10.2.1 y GodMode9 2.0.0 en la SD y la CTRNAND
-5. Inyecta FBI en Salud y Seguridad (si el usuario lo desea)
+4. Instala Luma 11.0 y GodMode9 2.1.1 en la SD y la CTRNAND
+5. Inyecta FBI 2.6.1 en Salud y Seguridad (si el usuario lo desea)
 6. Instala los siguientes cias: Homebrew Launcher, FBI (si no se inyecta en S&S), ctr-no-timeoffset y DSP1
 7. Soluciona errores de las carpetas dbs, data y private de la SYSNAND
 
