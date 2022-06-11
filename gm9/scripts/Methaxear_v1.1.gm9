@@ -1,0 +1,343 @@
+# Script "METHAXEAR v1.0" para GodMode9
+# Script que hace una copia de nuestra NAND,
+# instala/actualiza Boot9Strap, elimina
+# restos de hack anteriores, soluciona errores de BB,
+# instala FBI, Luma, Homebrew Launcher y GodMode9
+# author: Lopez Tutoriales
+
+
+# Variable para FBI
+set Inyectar_FBI falso
+
+
+############################## Titulo del script ##############################
+set PREVIEW_MODE 0:/gm9/methax/imagenes/principal.png
+
+
+#################### Mostrando información sobre la consola ###################
+@Methax_Informacion_Consola
+if not ask "INFORMACION SOBRE TU CONSOLA\nTipo: Nintendo $[ONTYPE]\nRegion: $[REGION]\nSerial: $[SERIAL]\nHack (si lo tiene): $[HAX]\n\nContinuar con el script?"
+	echo "Cancelado por el usuario :("
+	goto Methax_Salir
+end
+
+goto Methax_Copia_SYSNAND
+
+
+######################### Copia de seguridad de la NAND #######################
+@Methax_Copia_SYSNAND
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion1.png
+
+findnot $[GM9OUT]/$[DATESTAMP]_$[SERIAL]_sysnand_??.bin OUTPATH
+
+if	cp -h S:/nand_minsize.bin $[OUTPATH]
+	echo "Copia de SYSNAND creada correctamente\nen $[OUTPATH]"
+else
+	echo "Se cancelo o fallo la copia de la SYSNAND."
+end
+
+goto Methax_Instalar_Boot9Strap
+
+
+###################### Actualizando/Instalando Boot9Strap #####################
+@Methax_Instalar_Boot9Strap
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion2.png
+
+# Pidiendo permisos
+if	not allow -a S:
+	echo "Permiso denegado. Abortando.\nBoot9Strap no se ha instalado"
+	goto Methax_Salir
+end
+
+#Actualizando Boot9Strap
+find 0:/gm9/methax/boot9strap.firm B9S
+cp -w -o -n $[B9S] S:/firm0.bin
+cp -w -o -n $[B9S] S:/firm1.bin
+
+goto Methax_Eliminar_Archivos_Innecesarios
+
+
+####################### Eliminando archivos innecesarios ######################
+@Methax_Eliminar_Archivos_Innecesarios
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion3.png
+
+rm -o -s 0:/3ds/safehax.3dsx						# Archivo de SafeHax
+rm -o -s 0:/3ds/udsploit.3dsx						# Archivo de UDS Exploit
+rm -o -s 0:/4swords.app								# Archivo de aplicacion Zelda Four Swords
+rm -o -s 0:/a9lh									# Carpeta de Arm9LoaderHax
+rm -o -s 0:/arm9.bin								# Archivo de SafeB9SInstaller
+rm -o -s 0:/arm9loaderhax.bin						# Archivo de arranque para Arm9LoaderHax
+rm -o -s 0:/arm11.bin								# Archivo de SafeB9SInstaller
+rm -o -s 0:/aurei									# Carpeta de AuReiNand
+rm -o -s 0:/AuReiNand.dat							# Archivo de arranque para AuReiNand
+rm -o -s 0:/boot.3dsx								# Archivo de Homebrew Launcher en B9S
+rm -o -s 0:/boot.firm								# Archivo de arranque para Luma 3DS
+rm -o -s 0:/boot.nds								# Archivo Boot.nds de Twilight Menu++
+rm -o -s 0:/boot_hb.3dsx							# Archivo de Homebrew Launcher en A9LH
+rm -o -s 0:/boot9strap								# Carpeta de instalacion de Boot9Strap
+rm -o -s 0:/cia										# Carpeta para instalacion de archivos cia
+rm -o -s 0:/cias									# Carpeta para instalacion de archivos cia
+rm -o -s 0:/Decrypt9.log							# Archivo log de Decrypt9
+rm -o -s 0:/fbi										# Carpeta de FBI
+rm -o -s 0:/FBI.cia									# Archivo de instalacion de FBI
+rm -o -s 0:/files9									# Carpeta de Arm9LoaderHax
+rm -o -s 0:/hblauncherloader						# Carpeta para lanzar Homebrew Launcher en a9LH
+rm -o -s 0:/hs.app									# Archivo de aplicacion Salud y Seguridad
+rm -o -s 0:/launcher.dat							# Archivo de SafeB9SInstaller
+rm -o -s 0:/LOST.DIR								# Carpeta creada automaticamente por el PC
+rm -o -s 0:/luma									# Carpeta de Luma
+rm -o -s 0:/luma/payloads/ntrboot_flasher.firm		# Archivo de NTRBootHax
+rm -o -s 0:/menuhax									# Carpeta de MenuHax
+rm -o -s 0:/menuhax_padcfg.bin						# Archivo de configuracion de MenuHax
+rm -o -s 0:/ntr.bin									# Archivo de NTRBootHax
+rm -o -s 0:/ntrboot									# Carpeta de NTRBootHax
+rm -o -s 0:/ntrboot.firm							# Archivo de NTRBootHax
+rm -o -s 0:/rei										# Carpeta de ReiNand
+rm -o -s 0:/ReiNand.dat								# Archivo de ReiNand
+rm -o -s 0:/otherapp.bin							# Archivo otherapp
+rm -o -s 0:/private									# Carpeta private
+rm -o -s 0:/public.sav								# Partida guardada de DSiWare para exploits
+rm -o -s 0:/README.md								# Archivo "Leeme"
+rm -o -s 0:/SafeB9SInstaller.bin					# Archivo de SafeB9SInstaller
+rm -o -s 0:/SafeB9SInstaller.dat					# Archivo de SafeB9SInstaller
+rm -o -s 0:/safehaxpayload.bin						# Archivo de SafeHax
+rm -o -s 0:/savedata								# Carpeta de partidas guardadas para exploits
+rm -o -s 0:/SoundHax								# Carpeta de SoundHax
+rm -o -s 0:/splash.bin								# Pantalla de splash
+rm -o -s 0:/sudoku_v0.app							# Archivo de aplicacion Sudoku
+rm -o -s 0:/TinyFormat.cia							# Archivo de instalacion de TinyFormat
+rm -o -s 0:/Tools									# Carpeta con archivos para exploits
+rm -o -s 0:/update									# Carpeta de actualizaciones
+rm -o -s 0:/updates									# Carpeta de actualizaciones
+rm -o -s 0:/webkithax_tmp.bin						# Archivo de WebKitHax
+rm -o -s 0:/usm.bin									# Archivo usm del hack USM
+
+goto Methax_Instalar_Luma_Y_GodMode9
+
+
+########################## Instalando Luma y GodMode9 #########################
+@Methax_Instalar_Luma_Y_GodMode9
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion4.png
+
+# Instalacion de Luma en SD y en CTRNAND
+cp -w -o -s 0:/gm9/methax/boot.firm 0:/boot.firm											# Archivo de arranque de Luma en SD
+cp -w -o -s 0:/gm9/methax/boot.firm 1:/boot.firm											# Archivo de arranque de Luma en CTRNAND
+cp -w -o -s 0:/gm9/methax/luma 0:/luma														# Configuracion de Luma y payload de GodMode9 en SD
+cp -w -o -s 0:/gm9/methax/luma 1:/rw/luma													# Configuracion de Luma y payload de GodMode9 en CTRNAND
+
+# Archivo para Homebrew Launcher y carpeta 3ds con aplicaciones
+cp -w -o -s 0:/gm9/methax/boot.3dsx 0:/boot.3dsx											# Archivo de arranque para Homebrew Launcher
+cp -w -o -s 0:/gm9/methax/3ds 0:/3ds														# Carpeta con aplicaciones para Homebrew Launcher
+
+# Instalacion de GodMode9 en CTRNAND
+cp -w -o -s 0:/gm9/methax/luma/payloads/GodMode9.firm 1:/rw/luma/payloads/GodMode9.firm		# Payload de GodMode9 en CTRNAND
+
+# Moviendo carpetas de cias
+cp -w -o -s 0:/gm9/methax/cias 0:/cias														# Carpeta con los archivos .cia necesarios
+
+goto Methax_Inyectar_FBI
+
+
+###################### Inyectando FBI en Salud y Seguridad ####################
+@Methax_Inyectar_FBI
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion5.png
+
+# Preguntamos al usuario si quiere inyectar FBI en Salud y Seguridad
+if	not ask "Inyectar FBI en Salud y Seguridad?\nSi respondes 'NO', se instalara\nFBI en el menu Home desde un CIA.\nSi lo inyectas, antes se restaurara\nla aplicacion Salud y Seguridad para\nevitar problemas futuros"
+	set Inyectar_FBI falso
+else
+	set Inyectar_FBI verdadero
+
+	# Comprobamos la region y el tipo de consola para localizar la aplicacion Salud y Seguridad
+	if	chk $[REGION] "USA"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20021300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00021300/content/*.app H&SPATH
+		end
+	elif chk $[REGION] "EUR"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20022300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00022300/content/*.app H&SPATH
+		end
+	elif chk $[REGION] "JPN"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20020300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00020300/content/*.app H&SPATH
+		end
+	elif chk $[REGION] "KOR"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20027300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00027300/content/*.app H&SPATH
+		end
+	elif chk $[REGION] "CHN"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20026300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00026300/content/*.app H&SPATH
+		end
+	elif chk $[REGION] "TWN"
+		if	chk $[ONTYPE] "n3ds"
+			find -f 1:/title/00040010/20028300/content/*.app H&SPATH
+		else
+			find -f 1:/title/00040010/00028300/content/*.app H&SPATH
+		end
+	else
+		echo "Region desconocida. Abortando.\nNo se ha inyectado FBI."
+		rm -o -s $[GM9TEMP]
+		goto Methax_Finalizar
+	end
+	
+	######## Proceso para restaurar Salud y Seguridad antes ########
+	strsplit -b H&SBAK $[H&SPATH] "."
+	if	not find $[H&SBAK].bak NULL
+		echo "No hay copia de seguridad de\nSalud y Seguridad, procederemos a\ninyectar FBI directamente"
+	else
+		if	not allow -a 1:/
+			echo "Permiso denegado para restaurar\nSalud y Seguridad. Procederemos\na inyectar FBI directamente"
+		else
+			rm $[H&SPATH]
+			mv -n -w $[H&SBAK].bak $[H&SPATH]
+			echo "Salud y Seguridad restaurado. Procederemos\na inyectar FBI"
+		end
+	end
+	
+	######## Proceso para inyectar FBI ########
+	# Buscamos el archivo FBI.cia en la SD
+	find 0:/cias/FBI_ESP.cia FBISRC
+	
+	# Comprobamos los permisos
+	if	not allow -a 1:/
+		echo "Permiso denegado. Abortando.\nNo se ha inyectado FBI. Tendras\nque hacerlo manualmente"
+		rm -o -s $[GM9TEMP]
+		goto Methax_Finalizar
+	end
+
+	# Proceso para inyectar FBI en Salud y SEGURIDAD
+	strsplit -b H&SBAK $[H&SPATH] "."
+	set H&SBAK "$[H&SBAK].bak"
+	if	find $[H&SBAK] NULL
+		mv -w -k -n $[H&SBAK] $[H&SPATH]
+	end
+
+	set GM9TEMP "0:/gm9/temp"
+	if	not find $[GM9TEMP] NULL
+		mkdir $[GM9TEMP]
+	end
+
+	imgmount "$[FBISRC]"
+	find G:/*.app FBIAPP
+	strsplit FBINC $[FBIAPP] "/"
+	strsplit -b FBINC $[FBINC] "."
+	cp -n -w $[FBIAPP] $[GM9TEMP]/00000002.app
+	cp -n -w G:/$[FBINC]/ncch.bin $[GM9TEMP]/FBIncch.bin
+	imgumount
+
+	imgmount $[H&SPATH]
+	cp -n -w G:/ncch.bin $[GM9TEMP]/H&Sncch.bin
+	imgumount
+
+	set FBI "$[GM9TEMP]/FBIncch.bin"
+	set H&S "$[GM9TEMP]/H&Sncch.bin"
+
+	inject -n $[FBI]@104:2 $[H&S]@104
+	inject -n $[FBI]@111:1 $[H&S]@111
+	inject -n $[FBI]@130:D0 $[H&S]@130
+
+	inject -n $[H&S]@000:200 $[GM9TEMP]/00000002.app@000
+	inject -n $[H&S]@108:008 $[GM9TEMP]/00000002.app@3C8
+	inject -n $[H&S]@108:008 $[GM9TEMP]/00000002.app@400
+	inject -n $[H&S]@108:008 $[GM9TEMP]/00000002.app@800
+
+	@hashext
+	if	not shaget $[GM9TEMP]/00000002.app@200:400 $[GM9TEMP]/00000002.app.sha
+		goto hashext
+	end
+
+	inject -n $[GM9TEMP]/00000002.app.sha@000:020 $[GM9TEMP]/00000002.app@160
+
+	@ench&s
+	if	not encrypt $[GM9TEMP]/00000002.app
+		goto ench&s
+	end
+
+	mv $[H&SPATH] $[H&SBAK]
+	mv -w $[GM9TEMP]/00000002.app $[H&SPATH]
+
+	rm -o -s $[GM9TEMP]
+	echo "FBI inyectado en Salud y Seguridad correctamente."
+end
+
+goto Methax_Instalar_CIAS
+
+
+################################ Instalar CIAS ################################
+@Methax_Instalar_CIAS
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion6.png
+
+# Comprobamos los permisos para instalar los CIAS
+if	not allow -a 1:
+		allow -a 0:
+		allow -a A:
+
+		echo "Permiso denegado. No se instalaran\nlos CIAS. Tendras que instalarlos\nmanualmente luego"
+else
+
+	# Comprobamos si en la particion A: estan los archivos title.db e import.db
+	if	not find A:/dbs/title.db NULL
+		cp -w -o -s 0:/gm9/out/dbs/title.db A:/dbs/title.db
+		fixcmac A:/dbs/title.db
+	end
+	
+	if	not find A:/dbs/import.db NULL
+		cp -w -o -s 0:/gm9/out/dbs/import.db A:/dbs/import.db
+		fixcmac A:/dbs/import.db
+	end
+
+	# Instalamos Homebrew Launcher
+	install -o -s 0:/cias/Homebrew_Launcher.cia
+
+	# Comprobamos si inyectamos antes FBI en salud y seguridad para instalarlo o no
+	if chk $[Inyectar_FBI] falso
+		install -o -s 0:/cias/FBI_ESP.cia
+	end
+
+	# Instalamos CTR-No-TimeOffset
+	install -o -s 0:/cias/CTR-no-TimeOffset.cia
+
+	# Instalamos DSP1
+	install -o -s 0:/cias/DSP1.cia
+	
+	# Eliminamos los cias
+	rm -o -s 0:/cias/Homebrew_Launcher.cia
+	rm -o -s 0:/cias/FBI_ESP.cia
+	rm -o -s 0:/cias/CTR-no-TimeOffset.cia
+	rm -o -s 0:/cias/DSP1.cia
+	
+end
+
+goto Methax_Finalizar
+
+
+#####################33##### Finalizando instalacion ##########################
+@Methax_Finalizar
+set PREVIEW_MODE 0:/gm9/methax/imagenes/instalacion7.png
+
+fixcmac 1:/dbs								# Reparando carpeta dbs de la CTRNAND
+fixcmac 1:/data								# Reparando carpeta data de la CTRNAND
+fixcmac 1:/private							# Reparando carpeta private de la CTRNAND
+rm -o -s 0:/gm9/methax						# Eliminando carpeta methax
+rm -o -s 0:/gm9/out/dbs						# Eliminamos la carpeta dbs de la SD
+rm -o -s 0:/gm9/scripts/Methaxear_v1.1.gm9	# Eliminando script de Methaxear 2021
+
+echo "Listo! Ya puedes disfrutar a tope de tu 3DS"
+
+# Reiniciamos la consola
+reboot
+
+
+##################################### Salir ###################################
+@Methax_Salir
